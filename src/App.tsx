@@ -1,13 +1,11 @@
-import { useState } from 'react'
+
 import './App.css'
-import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Employee from './pages/Employee'
 
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <BrowserRouter>

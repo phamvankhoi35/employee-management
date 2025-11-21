@@ -306,7 +306,7 @@ const Employee = () => {
             component="div"
             count={employee.length}
             page={page}
-            onPageChange={(event, newPage) => setPage(newPage)}
+            onPageChange={(_, newPage) => setPage(newPage)}
             rowsPerPage={limit}
             onRowsPerPageChange={(event) => {
               setLimit(parseInt(event.target.value, 10))
