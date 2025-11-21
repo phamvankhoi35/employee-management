@@ -302,20 +302,20 @@ const Employee = () => {
             }
           </TableBody>
 
-          <TablePagination
-            component="div"
-            count={employee.length}
-            page={page}
-            onPageChange={(_, newPage) => setPage(newPage)}
-            rowsPerPage={limit}
-            onRowsPerPageChange={(event) => {
-              setLimit(parseInt(event.target.value, 10))
-              setPage(0)
-            }}
-            rowsPerPageOptions={[5, 10, 20]}
-          />
         </Table>
       </TableContainer>
+      <TablePagination
+        component="div"
+        count={employee.length}
+        page={page}
+        onPageChange={(_, newPage) => setPage(newPage)}
+        rowsPerPage={limit}
+        onRowsPerPageChange={(event) => {
+          setLimit(parseInt(event.target.value, 10))
+          setPage(0)
+        }}
+        rowsPerPageOptions={[5, 10, 20]}
+      />
     </Container>
   )
 }
