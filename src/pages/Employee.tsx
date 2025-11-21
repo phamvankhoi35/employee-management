@@ -1,5 +1,5 @@
-import { Button, Container, IconButton, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Typography } from '@mui/material';
-import { useMemo, useState } from 'react'
+import { Button, Container, IconButton, MenuItem, Pagination, Paper, Select, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Typography } from '@mui/material';
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Delete, Edit, Save } from '@mui/icons-material'
 
@@ -107,11 +107,19 @@ const Employee = () => {
     return data;
   }, [employee, search, sort])
 
+  const totalPages = Math.ceil(displayEmployee.length / limit);
   const pagination = useMemo(() => {
     const start = page * limit;
     const end = start + limit;
     return displayEmployee.slice(start, end);
   }, [displayEmployee, page, limit])
+
+  useEffect(() => {
+    const maxPage = Math.ceil(displayEmployee.length / limit) - 1;
+    if (page > maxPage) {
+      setPage(0);
+    }
+  }, [displayEmployee, limit, page]);
 
   // toggle sort
   const toggleSort = (key: keyof Employee) => {
@@ -226,7 +234,7 @@ const Employee = () => {
             {
               pagination.map((e, i) => (
                 <TableRow key={e.id}>
-                  <TableCell>{i + 1}</TableCell>
+                  <TableCell>{page * limit + i + 1}</TableCell>
 
                   <TableCell>
                     {
@@ -308,9 +316,9 @@ const Employee = () => {
 
         </Table>
       </TableContainer>
-      <TablePagination
+      {/* <TablePagination
         component="div"
-        count={employee.length}
+        count={totalPages}
         page={page}
         onPageChange={(_, newPage) => setPage(newPage)}
         rowsPerPage={limit}
@@ -319,6 +327,13 @@ const Employee = () => {
           setPage(0)
         }}
         rowsPerPageOptions={[5, 10, 20]}
+      /> */}
+      <Pagination
+        count={totalPages}
+        page={page + 1}
+        onChange={(_, value) => setPage(value - 1)}
+        showFirstButton
+        showLastButton
       />
     </Container>
   )
