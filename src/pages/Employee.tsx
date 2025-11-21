@@ -16,7 +16,6 @@ const positions = [
   "Frontend",
   "Backend",
   "Hr"
-
 ]
 
 const firstNames = ["An", "Bình", "Cường", "Dũng", "Hải", "Hiếu", "Huy", "Khánh", "Lan", "Minh", "Nam", "Trang", "Tuấn", "Vy"];
@@ -116,6 +115,7 @@ const Employee = () => {
 
   // toggle sort
   const toggleSort = (key: keyof Employee) => {
+    setPage(0); // reset về trang 0 khi sắp xếp
     setSort(prev => {
       if (prev.key !== key) return { key, direction: "asc" };
       if (prev.direction == "asc") return { key, direction: "desc" };
@@ -203,7 +203,11 @@ const Employee = () => {
         sx={{ mb: 2 }}
         label="Tìm kiếm nhân viên..."
         value={search}
-        onChange={e => setSearch(e.target.value)} />
+        onChange={e => {
+          setSearch(e.target.value)
+          setPage(0)// reset lại trang khi tìm
+        }
+        } />
 
       <p>Bảng nhân viên</p>
       <TableContainer component={Paper}>
